@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app font-monospace">
     <div class="content">
       <Appinfo />
         <div class="search-panel">
