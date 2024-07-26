@@ -1,15 +1,15 @@
 <template>
-  <li class="li-group-item d-flex justify-content-between">
+  <li class="li-group-item d-flex justify-content-between favourite">
     <span class="list-group-item-label"><i class="fas fa-user user"></i>Mahmudov</span>
     <input type="number" class="list-group-item-input" defaultValue="711" />
     <div class="d-flex justify-content-center align-items-center">
       <button type="button" class="btn-cookie btn-sm">
-        <i class="fa fa-heart heart"></i>
+        <i class="fa fa-heart heart" aria-hidden="true"></i>
       </button>
       <button type="button" class="btn-cookie btn-sm">
-        <i class="fa fa-trash" aria-hidden="true"></i>
+        <i class="fa fa-trash trash" aria-hidden="true"></i>
       </button>
-      <i class="fas fa-star"></i>
+      <i class="fas fa-star star"></i>
     </div>
   </li>
 </template>
@@ -26,7 +26,7 @@ export default {};
     align-items: center;
     justify-content: space-between;
 }
-.list-group-item:last-child {
+.li-group-item:last-child {
     border-bottom: none;
 }
 .list-group-item-label {
@@ -38,18 +38,18 @@ export default {};
 }
 .list-group-item-input {
     line-height: 35px;
+    background: none;
     font-size: 20px;
     text-align: center;
-    border: 2px solid #3d5a80;
+    border:none;
     border-radius: 5px;
     padding: 5px 10px;
     width: 100px;
     margin: 0 10px;
-    background-color: #fff;
     color: #333;
 }
 .list-group-item-input:focus {
-    border-color: #2a4d69;
+    border-color: none;
     outline: none;
 }
 .btn-cookie {
@@ -73,8 +73,41 @@ export default {};
 .btn-cookie:active {  
     background: #d6d6d6;
 }
+  .heart{
+    color: #587293;
+  }
   .user{
     color: rgb(20, 20, 71);
     margin-right: 10px;
+  }
+  .trash{
+    color:#587293;
+  }
+
+  .star {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 35px;
+    color: #ffd700;
+    transition: color 0.3s ease;
+    transform: translateX(30px);
+    opacity: 0;
+  }
+
+  .li-group-item.like .star {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .li-group-item.favourite .list-group-item-label{
+    color: #e09f3a;
+  }
+  .li-group-item.favourite .list-group-item-input{
+    color: #e09f3a;
+  }
+  .li-group-item.favourite .user{
+    color: #e09f3a;
   }
 </style>
