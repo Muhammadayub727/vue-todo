@@ -3,16 +3,16 @@
     class="li-group-item d-flex justify-content-between"
     :class="[{ like: movie.like }, { favourite: movie.favourite }]"
   >
-    <span class="list-group-item-label" @click="onLike"><i class="fas fa-user user"></i>{{ movie.name }}</span>
+    <span class="list-group-item-label" @click="$emit('onToggle',{id:movie.id, prop:'like'})"><i class="fas fa-user user"></i>{{ movie.name }}</span>
     <input type="number" class="list-group-item-input" :value="movie.viewers" />
     <div class="d-flex justify-content-center align-items-center">
-      <button type="button" class="btn-cookie btn-sm">
-        <i class="fa fa-heart heart" aria-hidden="true"></i>
+      <button type="button" class="btn-cookie btn-sm" @click="$emit('onToggle',{id:movie.id, prop:'favourite'})">
+        <i class="fas fa-cookie heart" aria-hidden="true"></i>
       </button>
       <button type="button" class="btn-cookie btn-sm">
         <i class="fa fa-trash trash" aria-hidden="true"></i>
       </button>
-      <i class="fas fa-star star"></i>
+      <i class="fa fa-heart star"></i>
     </div>
   </li>
 </template>
@@ -27,8 +27,8 @@ export default {
   },
   methods: {
     onLike () {
-      // this.movie.like = !this.movie.like
-      console.log(this.movie.id) 
+      this.$emit('onLike', this.movie.id)
+      // console.log(this.movie.id) 
     }
   },
 };
@@ -106,7 +106,7 @@ export default {
   font-size: 16px;
   text-align: center;
   line-height: 35px;
-  color: #ffd700;
+  color: red;
   transition: color 0.3s ease;
   transform: translateX(30px);
   opacity: 0;

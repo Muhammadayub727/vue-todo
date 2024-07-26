@@ -9,7 +9,7 @@
         <SearchPanel />
         <AppFilterVue />
       </div>
-      <MovieList :movies="movies"/>
+      <MovieList :movies="movies" @onToggle="onToggleHandler"/>
       <MovieAddForm  @createMovie="createMovie"/>
     </div>
   </div>
@@ -36,29 +36,29 @@ export default {
           id: 1,
           name: "The Godfather",
           seen: 701,
-          favoutite: false,
+          favourite: false,
           like: false,
         },
         {
           id: 2,
           name: "The Shawshank Redemption",
           seen: 712,
-          favoutite: true,
-          like: true,
+          favourite: false,
+          like: false,
         },
         {
           id: 3,
           name: "The Godfather: Part II",
           seen: 702,
-          favoutite: false,
+          favourite: false,
           like: false,
         },
         {
           id: 4,
           name: "Pulp Fiction",
           seen: 771,
-          favoutite: true,
-          like: true,
+          favourite: false,
+          like: false,
         },
       ],
     };
@@ -67,10 +67,19 @@ export default {
     createMovie(item) {
       this.movies.push(item);
     },
+    onToggleHandler(id,prop) {
+      console.log(prop)
+      this.movies = this.movies.map(item=>{
+          if(item.id === id){
+            return {...item, [prop]: !item[prop]}
+          }
+          return item
+      })
+     },
   },
   computed:{
     favouriteCount(){
-        return this.movies.filter((c) => c.favoutite).length
+        return this.movies.filter((c) => c.favourite).length
     },
     mounted(){
         console.log('favouriteCount')

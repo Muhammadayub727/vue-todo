@@ -1,31 +1,37 @@
-<template>
+    <template>
     <ul class="movie-list list-group">
-        <MovieListItem v-for="movie in movies" :key="movie.id" :movie="movie"/>    
-    </ul>
-</template>
+        <MovieListItem
+        v-for="movie in movies"
+        :key="movie.id"
+        :movie="movie"
+        @onToggle="$emit('onToggle', $event)"
 
-<script>
-import MovieListItem from '../movie-list-item/MovieListItem.vue'
-export default {
+        />
+    </ul>
+    </template>
+
+    <script>
+    import MovieListItem from "../movie-list-item/MovieListItem.vue";
+    export default {
     components: {
         MovieListItem,
     },
     props: {
         movies: {
-            type: Array,
-            required: true
-        }
-    }
-}
-</script>
+        type: Array,
+        required: true,
+        },
+    },
+    };
+    </script>
 
-<style scoped>
+    <style scoped>
     .movie-list {
-        margin-top: 2rem;
-        /* margin-bottom: 1rem; */
-        padding: 1.5rem;
-        background: #fcfaf5;
-        border-radius: 4px;
-        box-shadow: 15px 15px 15px 15px rgba(0,0,0,0.15);
+    margin-top: 2rem;
+    /* margin-bottom: 1rem; */
+    padding: 1.5rem;
+    background: #fcfaf5;
+    border-radius: 4px;
+    box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, 0.15);
     }
-</style>
+    </style>

@@ -34,7 +34,7 @@ export default {
             const newMovie = {
                 name: this.name,
                 viewers: this.viewers,
-                favoutite: false,
+                favourite: false,
                 like: false,
                 id: Date.now(),
             }
