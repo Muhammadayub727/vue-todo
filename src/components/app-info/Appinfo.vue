@@ -1,14 +1,18 @@
 <template>
     <div class="app-info">
-        <p class="fs-3 text-uppercase">Number of all Movies:</p>
+        <p class="fs-3 text-uppercase">Number of all Movies:{{ allMoviesCount }}</p>
         <p class="fs-4 text-uppercase">Number of movies viewed:0</p>
     </div>
     
 </template>
-
 <script>
     export default {
-        
+        props: {
+            allMoviesCount: {
+                type:Number,
+                requied: true
+            }
+        }
     }
 </script>
 

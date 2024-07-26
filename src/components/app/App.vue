@@ -1,12 +1,12 @@
 <template>
   <div class="app font-monospace">
     <div class="content">
-      <Appinfo />
+      <Appinfo :allMoviesCount="movies.length"/>
         <div class="search-panel">
           <SearchPanel/>
           <AppFilterVue/>
         </div>
-        <MovieList/>
+        <MovieList :movies="movies"/>
         <MovieAddForm/>
     </div>
   </div>
@@ -25,7 +25,41 @@
     AppFilterVue,
     MovieList,
     MovieAddForm
-  }
+  },
+    data() {
+      return {
+        movies: [
+          {
+            id: 1,
+            name: 'The Godfather',
+            seen: 701,
+            favoutite: false,
+            like: false
+          },
+          {
+            id: 2,
+            name: 'The Shawshank Redemption',
+            seen: 712,
+            favoutite: true,
+            like: true
+          },
+          {
+            id: 3,
+            name: 'The Godfather: Part II',
+            seen: 702,
+            favoutite: false,
+            like: false
+          },
+          {
+            id: 4,
+            name: 'Pulp Fiction',
+            seen: 771,
+            favoutite: true,
+            like: true
+          },
+        ]
+      }
+    },
   }
 </script>
 
