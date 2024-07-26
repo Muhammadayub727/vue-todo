@@ -31,7 +31,6 @@ export default {
     },
     methods: {
         addMovie(e) {
-            // e.preventDefault()
             const newMovie = {
                 name: this.name,
                 viewers: this.viewers,
@@ -43,7 +42,8 @@ export default {
             this.$emit('add-movie', newMovie)
             this.name = ''
             this.viewers = ''
-            console.log(newMovie)    },
+            console.log(newMovie)   
+        },
         },
 };
 </script>
