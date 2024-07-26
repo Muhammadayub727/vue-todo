@@ -1,7 +1,7 @@
 <template>
-  <li class="li-group-item d-flex justify-content-between favourite">
-    <span class="list-group-item-label"><i class="fas fa-user user"></i>Mahmudov</span>
-    <input type="number" class="list-group-item-input" defaultValue="711" />
+  <li class="li-group-item d-flex justify-content-between" :class="[ {like: movie.like}, {favourite: movie.favourite} ]">
+    <span class="list-group-item-label"><i class="fas fa-user user"></i>{{ movie.name }}</span>
+    <input type="number" class="list-group-item-input" :value="movie.viewers" />
     <div class="d-flex justify-content-center align-items-center">
       <button type="button" class="btn-cookie btn-sm">
         <i class="fa fa-heart heart" aria-hidden="true"></i>
@@ -15,7 +15,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    movie:{
+      type: Object,
+      reqiured:true, 
+    }
+  }
+};
 </script>
 
 <style scoped>
