@@ -25,6 +25,12 @@ export default {
       reqiured: true,
     },
   },
+  methods: {
+    onLike () {
+      // this.movie.like = !this.movie.like
+      console.log(this.movie.id)
+    }
+  },
 };
 </script>
 

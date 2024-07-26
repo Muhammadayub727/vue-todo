@@ -36,14 +36,15 @@ export default {
                 name: this.name,
                 viewers: this.viewers,
                 favoutite: false,
-                like: false
+                like: false,
+                id: Date.now(),
             }
             // console.log(newMovie)    
             this.$emit('add-movie', newMovie)
             this.name = ''
             this.viewers = ''
+            console.log(newMovie)    },
         },
-    },
 };
 </script>
 
