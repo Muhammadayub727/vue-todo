@@ -4,8 +4,9 @@
         v-for="movie in movies"
         :key="movie.id"
         :movie="movie"
-        @onToggle="$emit('onToggle', $event)"
-
+        @onLike="$emit('onLike',movie.id)"
+        @onFavourite="$emit('onFavourite',movie.id)"
+        
         />
     </ul>
     </template>

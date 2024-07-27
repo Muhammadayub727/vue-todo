@@ -9,7 +9,7 @@
         <SearchPanel />
         <AppFilterVue />
       </div>
-      <MovieList :movies="movies" @onToggle="onToggleHandler"/>
+      <MovieList :movies="movies" @onLike="onLikeHandler" @onFavourite="onFavouriteHandler"/>
       <MovieAddForm  @createMovie="createMovie"/>
     </div>
   </div>
@@ -21,6 +21,7 @@ import SearchPanel from "../search-panel/SearchPanel.vue";
 import AppFilterVue from "../app-filter/AppFilter.vue";
 import MovieList from "../movie-list/MovieList.vue";
 import MovieAddForm from "../movie-add-form/MovieAddForm.vue";
+
 export default {
   components: {
     Appinfo,
@@ -67,24 +68,33 @@ export default {
     createMovie(item) {
       this.movies.push(item);
     },
-    onToggleHandler(id,prop) {
-      console.log(prop)
-      this.movies = this.movies.map(item=>{
-          if(item.id === id){
-            return {...item, [prop]: !item[prop]}
-          }
-          return item
-      })
-     },
-  },
-  computed:{
-    favouriteCount(){
-        return this.movies.filter((c) => c.favourite).length
+    onLikeHandler(id) {
+      console.log(id);
+      this.movies = this.movies.map((item) => {
+        if (item.id == id) {
+          item.like = !item.like;
+        }
+        return item;
+      });
     },
-    mounted(){
-        console.log('favouriteCount')
-    }
-}
+    onFavouriteHandler(id) {
+      console.log(id);
+      this.movies = this.movies.map((item) => {
+        if (item.id == id) {
+          item.favourite = !item.favourite;
+        }
+        return item;
+      });
+    },
+  },
+  computed: {
+    favouriteCount() {
+      return this.movies.filter((c) => c.favourite).length;
+    },
+  },
+  mounted() {
+    console.log("favouriteCount");
+  },
 };
 </script>
 
