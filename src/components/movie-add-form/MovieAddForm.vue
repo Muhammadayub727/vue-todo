@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         addMovie(e) {
-            if(this.name || this.viewers) return
+            if(!this.name || !this.viewers) return
             const newMovie = {
                 name: this.name,
                 viewers: this.viewers,

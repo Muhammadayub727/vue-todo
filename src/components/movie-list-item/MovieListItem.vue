@@ -4,7 +4,7 @@
     :class="[{ like: movie.like }, { favourite: movie.favourite }]"
   >
     <span class="list-group-item-label" @click="onLike"><i class="fas fa-user user"></i>{{ movie.name }}</span>
-    <input type="number" class="list-group-item-input" :value="movie.viewers" />
+    <input type="number" class="list-group-item-input"  :value='movie.viewers'/>
     <div class="d-flex justify-content-center align-items-center">
       <button type="button" class="btn-cookie btn-sm" @click="$emit('onFavourite',movie.id)">
         <i class="fas fa-cookie heart" aria-hidden="true"></i>
@@ -75,7 +75,7 @@ export default {
   font-size: 17px;
   border: none;
   cursor: pointer;
-  background: #f8f9fa;
+  background: #f6f6f6;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -86,19 +86,20 @@ export default {
   background: #e2e6ea;
   transform: scale(1.1);
 }
-.btn-cookie:active {
-  background: #d6d6d6;
-}
+
 .heart {
-  color: #587293;
+  color: #F4CA16;
 }
 .user {
   color: rgb(20, 20, 71);
   margin-right: 10px;
 }
 .trash {
-  color: #587293;
+  color: red;
+  
 }
+
+
 
 .star {
   width: 35px;
@@ -107,14 +108,22 @@ export default {
   text-align: center;
   line-height: 35px;
   color: red;
-  transition: color 0.3s ease;
+  transition:  background 0.3s, transform 0.2s;
   transform: translateX(30px);
   opacity: 0;
+  background: #f6f6f6;
+  border-radius: 50%;
+  margin: 3px;
 }
 
 .li-group-item.like .star {
   opacity: 1;
   transform: translateX(0);
+}
+
+.li-group-item.like .star:hover {
+  background: #e2e6ea;
+  transform: scale(1.1);
 }
 
 .li-group-item.favourite .list-group-item-label {
