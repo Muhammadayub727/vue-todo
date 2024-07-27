@@ -6,6 +6,7 @@
         :movie="movie"
         @onLike="$emit('onLike',movie.id)"
         @onFavourite="$emit('onFavourite',movie.id)"
+        @onRemove="$emit('onRemove',movie.id)"
         
         />
     </ul>

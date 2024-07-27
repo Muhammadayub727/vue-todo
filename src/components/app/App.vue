@@ -9,7 +9,7 @@
         <SearchPanel />
         <AppFilterVue />
       </div>
-      <MovieList :movies="movies" @onLike="onLikeHandler" @onFavourite="onFavouriteHandler"/>
+      <MovieList :movies="movies" @onLike="onLikeHandler" @onFavourite="onFavouriteHandler" @onRemove="onRemoveHandler"/>
       <MovieAddForm  @createMovie="createMovie"/>
     </div>
   </div>
@@ -85,6 +85,10 @@ export default {
         }
         return item;
       });
+    },
+    onRemoveHandler(id) {
+      console.log(id);
+      this.movies = this.movies.filter(c => c.id != id);
     },
   },
   computed: {

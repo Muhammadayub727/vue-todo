@@ -9,7 +9,7 @@
       <button type="button" class="btn-cookie btn-sm" @click="$emit('onFavourite',movie.id)">
         <i class="fas fa-cookie heart" aria-hidden="true"></i>
       </button>
-      <button type="button" class="btn-cookie btn-sm">
+      <button type="button" class="btn-cookie btn-sm" @click="$emit('onRemove',movie.id)">
         <i class="fa fa-trash trash" aria-hidden="true"></i>
       </button>
       <i class="fa fa-heart star"></i>
