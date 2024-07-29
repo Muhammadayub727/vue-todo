@@ -1,6 +1,6 @@
     <template>
     <div class="btn-group">
-        <button
+        <PrimaryButton
         v-for="btn in filterButtons"
         :key="btn.name"
         class="btn"
@@ -9,11 +9,14 @@
         @click="filterHandler(btn.name)"
         >
         {{ btn.title }}
-        </button>
+        </PrimaryButton>
     </div>
     </template>
 
     <script>
+
+    // import PrimaryButton from '@/ui-components/PrimaryButton.vue'
+
     export default {
     props: {
         updateFilterHandler: {
@@ -25,6 +28,9 @@
         required: true,
         },
     },
+    // components: {
+    //     PrimaryButton,
+    // },
     data() {
         return {
         filterButtons: [
