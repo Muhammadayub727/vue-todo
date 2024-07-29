@@ -6,15 +6,13 @@
             type="text"
             class="form-control new-movie-label"
             placeholder="Movie"
-            :value="name"
-            @input="name = $event.target.value"
+            v-model="name"
         />
         <input
             type="text"
             class="form-control new-movie-label"
             placeholder="Seen how many times?"
-            :value="viewers"
-            @input="viewers = $event.target.value"
+            v-model="viewers"
         />
             <PrimaryButton class="btn btn-outline-success" type="submit">Add</PrimaryButton>
         </form>

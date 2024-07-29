@@ -2,10 +2,10 @@
         <div class="d-flex position-relative">
           <input
             type="text"
-            class="form-control search-input"
+            class="search-input"
             placeholder="Search Movies"
-            @input="changeHandler($event)"
-            :value="term"
+            v-model="term"
+            @input="changeHandler"
           />
           <i
             v-if="!term"
