@@ -25,7 +25,8 @@
           />
         </div>
       </template>
-      <MovieAddForm @createMovie="createMovie" />
+      <div v-if="filter == 'all'">Filter all</div>
+      <MovieAddForm @createMovie="createMovie"/>
     </div>
   </div>
 </template>
@@ -33,8 +34,9 @@
 <script>
 import Appinfo from "../app-info/Appinfo.vue";
 import SearchPanel from "../search-panel/SearchPanel.vue";
-import AppFilterVue from "../app-filter/AppFilter.vue";
+import AppFilterVue from "../app-filter/AppFilter.vue";                                                                                                                                                                                                                                                                                              
 import MovieList from "../movie-list/MovieList.vue";
+import MovieAddForm from "../movie-add-form/MovieAddForm.vue";
 import MovieAddForm from "../movie-add-form/MovieAddForm.vue";
 
 export default {
@@ -44,7 +46,8 @@ export default {
     AppFilterVue,
     MovieList,
     MovieAddForm,
-  },
+    MovieAddForm
+},
   data() {
     return {
       movies: [
@@ -125,11 +128,12 @@ export default {
     updateTermHandler(term) {
       this.term = term;
     },
-
     updateFilterHandler(filter) {
       this.filter = filter
-    }
+    },
+
   },
+
   computed: {
     favouriteCount() {
       return this.movies.filter((c) => c.favourite).length;
