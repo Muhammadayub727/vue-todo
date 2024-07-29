@@ -1,4 +1,4 @@
-    <template>
+<template>
     <ul class="movie-list list-group">
         <MovieListItem
         v-for="movie in movies"
@@ -10,9 +10,9 @@
         
         />
     </ul>
-    </template>
+</template>
 
-    <script>
+<script>
     import MovieListItem from "../movie-list-item/MovieListItem.vue";
     export default {
     components: {
@@ -25,9 +25,9 @@
         },
     },
     };
-    </script>
+</script>
 
-    <style scoped>
+<style scoped>
     .movie-list {
     margin-top: 2rem;
     /* margin-bottom: 1rem; */
@@ -36,4 +36,4 @@
     border-radius: 4px;
     box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, 0.15);
     }
-    </style>
+</style>
