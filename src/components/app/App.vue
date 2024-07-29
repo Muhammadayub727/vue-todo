@@ -3,8 +3,7 @@
     <div class="content">
       <Appinfo
         :allMoviesCount="movies.length"
-        :favouriteMoviesCount="favouriteCount"
-      />
+        :favouriteMoviesCount="favouriteCount"/>
       <div class="search-panel">
         <SearchPanel :updateTermHandler="updateTermHandler" />
         <AppFilterVue :updateFilterHandler="updateFilterHandler" :filterName="filter"/>
@@ -25,7 +24,7 @@
           />
         </div>
       </template>
-      <div v-if="filter == 'all'">Filter all</div>
+      <!-- <div v-if="filter == 'all'">Filter all</div> -->
       <MovieAddForm @createMovie="createMovie"/>
     </div>
   </div>
@@ -37,7 +36,8 @@ import SearchPanel from "../search-panel/SearchPanel.vue";
 import AppFilterVue from "../app-filter/AppFilter.vue";                                                                                                                                                                                                                                                                                              
 import MovieList from "../movie-list/MovieList.vue";
 import MovieAddForm from "../movie-add-form/MovieAddForm.vue";
-import MovieAddForm from "../movie-add-form/MovieAddForm.vue";
+import axios from "axios";
+import PrimaryButton from "@/ui-components/PrimaryButton.vue";
 
 export default {
   components: {
@@ -46,40 +46,11 @@ export default {
     AppFilterVue,
     MovieList,
     MovieAddForm,
-    MovieAddForm
+    PrimaryButton
 },
   data() {
     return {
-      movies: [
-        { 
-          id: 1,
-          name: "Godfather", 
-          seen: 701, 
-          favourite: false, 
-          like: false 
-        },
-        {
-          id: 2,
-          name: "Shawshank Redemption",
-          seen: 222,
-          favourite: false,
-          like: false,
-        },
-        {
-          id: 3,
-          name: "Godfather: Part II",
-          seen: 442,
-          favourite: false,
-          like: false,
-        },
-        {
-          id: 4,
-          name: "Pulp Fiction",
-          seen: 771,
-          favourite: false,
-          like: false,
-        },
-      ],
+      movies: [],
       term: "",
       filter: 'all',
     };
@@ -132,8 +103,25 @@ export default {
       this.filter = filter
     },
 
+    async fetchMovie(){
+      try {
+        const {data} = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+        const newArr = data.map(item => ({
+          id : item.id,
+          name : item.title,
+          like : false,
+          favourite : false,
+          seen : item.id * 77
+        }))
+        this.movies = newArr
+      } catch (error) {
+        console.log(`output-error`,error )
+      }
+    },
   },
-
+  mounted() {
+    this.fetchMovie()
+  },
   computed: {
     favouriteCount() {
       return this.movies.filter((c) => c.favourite).length;
