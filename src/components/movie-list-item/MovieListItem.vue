@@ -4,7 +4,7 @@
     :class="[{ like: movie.like }, { favourite: movie.favourite }]"
   >
     <span class="list-group-item-label" @click="onLike"><i class="fas fa-user user"></i>{{ movie.name }}</span>
-    <input type="number" class="list-group-item-input"  :value='movie.viewers'/>
+    <input type="number" class="list-group-item-input"  :value="movie.seen"/>
     <div class="d-flex justify-content-center align-items-center">
       <button type="button" class="btn-cookie btn-sm" @click="$emit('onFavourite',movie.id)">
         <i class="fas fa-cookie heart" aria-hidden="true"></i>

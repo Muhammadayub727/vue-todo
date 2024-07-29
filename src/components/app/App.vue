@@ -115,7 +115,7 @@ export default {
         case 'popular':
           return arr.filter((c) => c.like);
         case 'mostViewed':
-          return arr.filter((c) => c.viewers > 700);
+          return arr.filter((c) => c.seen > 400);
         case 'favourite':
           return arr.filter((c) => c.favourite);
         default:
