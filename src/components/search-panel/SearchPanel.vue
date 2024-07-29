@@ -2,7 +2,7 @@
         <div class="d-flex position-relative">
           <input
             type="text"
-            class="search-input"
+            class=" form-control search-input"
             placeholder="Search Movies"
             v-model="term"
             @input="changeHandler"
