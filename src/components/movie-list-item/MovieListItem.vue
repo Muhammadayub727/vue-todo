@@ -28,7 +28,6 @@ export default {
   methods: {
     onLike () {
       this.$emit('onLike', this.movie.id)
-      // console.log(this.movie.id) 
     }
   },
 };
