@@ -89,9 +89,19 @@ export default {
     };
   },
   methods: {
-    createMovie(item) {
-      this.movies.push(item);
-    },
+      async createMovie(item) {  
+        try {
+          const response = await axios.post(
+          "https://jsonplaceholder.typicode.com/posts",
+              item
+          );
+          this.movies.push(response.data);
+        }
+        catch (error) {
+          console.log(`output-error`, error);
+        }
+    }
+  ,
     onLikeHandler(id) {
       this.movies = this.movies.map((item) => {
         if (item.id === id) {
@@ -108,8 +118,16 @@ export default {
         return item;
       });
     },
-    onRemoveHandler(id) {
-      this.movies = this.movies.filter((c) => c.id !== id);
+    async onRemoveHandler(id) {
+      try {
+        const response = await axios.delete(
+          `https://jsonplaceholder.typicode.com/posts/${id}`
+        )
+        console.log(response)
+        this.movies = this.movies.filter((c) => c.id !== id);
+      } catch (error) {
+        alert(error.message);
+      }
     },
     onSearchHandler(arr, term) {
       if (term.length === 0) {

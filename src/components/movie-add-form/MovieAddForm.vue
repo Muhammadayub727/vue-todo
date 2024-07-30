@@ -41,7 +41,7 @@
                     viewers: this.viewers,
                     favourite: false,
                     like: false,
-                    id: Date.now(),
+                    // id: Date.now(),
                 }
                 // console.log(newMovie)    
                 this.$emit('add-movie', newMovie)
