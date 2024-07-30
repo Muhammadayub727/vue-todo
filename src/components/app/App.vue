@@ -51,7 +51,6 @@
           />
         </div>
       </template>    
-      <!-- <div v-if="filter == 'all'">Filter all</div> -->
       <MovieAddForm @createMovie="createMovie" />
     </div>
   </div>
@@ -95,6 +94,8 @@ export default {
           "https://jsonplaceholder.typicode.com/posts",
               item
           );
+
+          console.log(response);
           this.movies.push(response.data);
         }
         catch (error) {
@@ -140,7 +141,7 @@ export default {
         case "popular":
           return arr.filter((c) => c.like);
         case "mostViewed":
-          return arr.filter((c) => c.seen > 500);
+          return arr.filter((c) => c.seen > 4);
         case "favourite":
           return arr.filter((c) => c.favourite);
         default:
@@ -163,6 +164,7 @@ export default {
               params: {
                 _limit: this.limit,
                 _page: this.page,
+                // body: "test body",
               },
             }
           );
@@ -220,7 +222,6 @@ export default {
   border-radius: 7px;
   padding: 5rem 0;
   margin: 0 auto;
-  /* box-shadow: 0 0 10px 10px #ccc; */
 }
 .search-panel {
   margin-top: 2rem;

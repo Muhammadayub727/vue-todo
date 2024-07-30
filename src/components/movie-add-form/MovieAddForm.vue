@@ -21,7 +21,6 @@
     
     <script>
         
-    // import PrimaryButton from '@/ui-components/PrimaryButton.vue'
         
     export default {
         data(){
@@ -30,9 +29,6 @@
                 viewers: ''
             }
         },
-        // components: {
-        //     PrimaryButton
-        // },
         methods: {
             addMovie() {
                 if(!this.name || !this.viewers) return;
@@ -41,9 +37,8 @@
                     viewers: this.viewers,
                     favourite: false,
                     like: false,
-                    // id: Date.now(),
-                }
-                // console.log(newMovie)    
+                    id: Date.now()
+                }  
                 this.$emit('add-movie', newMovie)
                 this.name = ''
                 this.viewers = ''
