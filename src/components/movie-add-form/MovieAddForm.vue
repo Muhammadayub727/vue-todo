@@ -27,6 +27,7 @@
             return {
                 name: '',
                 viewers: ''
+                
             }
         },
         methods: {

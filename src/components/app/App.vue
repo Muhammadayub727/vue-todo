@@ -164,7 +164,6 @@ export default {
               params: {
                 _limit: this.limit,
                 _page: this.page,
-                // body: "test body",
               },
             }
           );
