@@ -9,15 +9,39 @@
         <AppFilterVue :updateFilterHandler="updateFilterHandler" :filterName="filter"/>
       </div>
       <template v-if="filteredMovies.length">
+      
         <MovieList
           :movies="onFilterHandler(filteredMovies, filter)"
           @onLike="onLikeHandler"
           @onFavourite="onFavouriteHandler"
           @onRemove="onRemoveHandler"
         />
+        <Box class="mt-5">
+          <nav aria-label="pagination" class="d-flex justify-content-end">
+              <ul class="pagination">
+                <li class="page-item disabled">
+                  <span class="page-link">Previous</span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active" aria-current="page">
+                  <span class="page-link">2</span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#">Next</a>
+                </li>
+              </ul>
+          </nav>
+        </Box>
       </template>
       <template v-else>
-        <div class="no-data">
+        <div v-if="!movies.length && !isLoading" class="no-data">
+          <h2 class="text-center text-uppercase text-danger fw-bold">No movies add</h2>
+        </div>
+        <Box v-if="isLoading" class=" mt-5 d-flex justify-content-center" >
+            <Loader/>
+        </Box>
+        <div class="no-data" v-else>
           <img
             src="https://i.pinimg.com/originals/0e/c0/db/0ec0dbf1e9a008acb9955d3246970e15.gif"
             alt="No data"
@@ -26,6 +50,7 @@
       </template>
       <!-- <div v-if="filter == 'all'">Filter all</div> -->
       <MovieAddForm @createMovie="createMovie"/>
+
     </div>
   </div>
 </template>
@@ -38,6 +63,7 @@ import MovieList from "../movie-list/MovieList.vue";
 import MovieAddForm from "../movie-add-form/MovieAddForm.vue";
 import axios from "axios";
 import PrimaryButton from "@/ui-components/PrimaryButton.vue";
+import Loader from '../../ui-components/Loader.vue';
 
 export default {
   components: {
@@ -46,13 +72,18 @@ export default {
     AppFilterVue,
     MovieList,
     MovieAddForm,
-    PrimaryButton
+    PrimaryButton,
+    Loader
 },
   data() {
     return {
       movies: [],
       term: "",
       filter: 'all',
+      isLoading: false,
+      limit:10,
+      page:1,
+      totalPages:0
     };
   },
   methods: {
@@ -105,16 +136,29 @@ export default {
 
     async fetchMovie(){
       try {
-        const {data} = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
-        const newArr = data.map(item => ({
-          id : item.id,
-          name : item.title,
-          like : false,
-          favourite : false,
-          seen : item.id * 77
-        }))
-        this.movies = newArr
-      } catch (error) {
+        this.isLoading = true
+        setTimeout(async() => {
+          const response = await axios.get('https://jsonplaceholder.typicode.com/posts',{
+            params : {
+              _limit : this.limit,
+              _page : this.page
+            }
+          })
+          const newArr = response.data.map(item => ({
+            id : item.id,
+            name : item.title,
+            like : false,
+            favourite : false,
+            seen : item.id * 77
+          }))
+
+          this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
+          this.movies = newArr
+          this.isLoading = false
+        },1000)
+
+      } 
+      catch (error) {
         console.log(`output-error`,error )
       }
     },
