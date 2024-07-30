@@ -37,12 +37,10 @@
                     viewers: this.viewers,
                     favourite: false,
                     like: false,
-                    id: Date.now()
                 }  
                 this.$emit('add-movie', newMovie)
                 this.name = ''
                 this.viewers = ''
-                console.log(newMovie)   
             },
         },
     };
