@@ -3,13 +3,16 @@
     <div class="content">
       <Appinfo
         :allMoviesCount="movies.length"
-        :favouriteMoviesCount="favouriteCount"/>
+        :favouriteMoviesCount="favouriteCount"
+      />
       <div class="search-panel">
         <SearchPanel :updateTermHandler="updateTermHandler" />
-        <AppFilterVue :updateFilterHandler="updateFilterHandler" :filterName="filter"/>
+        <AppFilterVue
+          :updateFilterHandler="updateFilterHandler"
+          :filterName="filter"
+        />
       </div>
       <template v-if="filteredMovies.length">
-      
         <MovieList
           :movies="onFilterHandler(filteredMovies, filter)"
           @onLike="onLikeHandler"
@@ -17,29 +20,29 @@
           @onRemove="onRemoveHandler"
         />
         <Box class="mt-5">
-          <nav aria-label="pagination" class="d-flex justify-content-end">
-              <ul class="pagination">
-                <li class="page-item disabled">
-                  <span class="page-link">Previous</span>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active" aria-current="page">
-                  <span class="page-link">2</span>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
+          <nav aria-label="pagination" class="d-flex justify-content-end mt-2">
+            <ul class="pagination pagination-lg">
+              <li
+                v-for="pageNumber in totalPages"
+                :key="pageNumber"
+                class="page-item mx-1"
+                :class="{ active: pageNumber == page }"
+                @click="changePageHandler(pageNumber)"
+                >
+                <span class="page-link">{{ pageNumber }}</span>
+              </li>
+            </ul>
           </nav>
         </Box>
       </template>
       <template v-else>
         <div v-if="!movies.length && !isLoading" class="no-data">
-          <h2 class="text-center text-uppercase text-danger fw-bold">No movies add</h2>
+          <h2 class="text-center text-uppercase text-danger fw-bold">
+            No movies add
+          </h2>
         </div>
-        <Box v-if="isLoading" class=" mt-5 d-flex justify-content-center" >
-            <Loader/>
+        <Box v-if="isLoading" class="mt-5 d-flex justify-content-center">
+          <Loader />
         </Box>
         <div class="no-data" v-else>
           <img
@@ -47,10 +50,9 @@
             alt="No data"
           />
         </div>
-      </template>
+      </template>    
       <!-- <div v-if="filter == 'all'">Filter all</div> -->
-      <MovieAddForm @createMovie="createMovie"/>
-
+      <MovieAddForm @createMovie="createMovie" />
     </div>
   </div>
 </template>
@@ -58,12 +60,12 @@
 <script>
 import Appinfo from "../app-info/Appinfo.vue";
 import SearchPanel from "../search-panel/SearchPanel.vue";
-import AppFilterVue from "../app-filter/AppFilter.vue";                                                                                                                                                                                                                                                                                              
+import AppFilterVue from "../app-filter/AppFilter.vue";
 import MovieList from "../movie-list/MovieList.vue";
 import MovieAddForm from "../movie-add-form/MovieAddForm.vue";
 import axios from "axios";
 import PrimaryButton from "@/ui-components/PrimaryButton.vue";
-import Loader from '../../ui-components/Loader.vue';
+import Loader from "../../ui-components/Loader.vue";
 
 export default {
   components: {
@@ -73,17 +75,17 @@ export default {
     MovieList,
     MovieAddForm,
     PrimaryButton,
-    Loader
-},
+    Loader,
+  },
   data() {
     return {
       movies: [],
       term: "",
-      filter: 'all',
+      filter: "all",
       isLoading: false,
-      limit:10,
-      page:1,
-      totalPages:0
+      limit: 10,
+      page: 1,
+      totalPages: 0,
     };
   },
   methods: {
@@ -115,56 +117,67 @@ export default {
       }
       return arr.filter((c) => c.name.toLowerCase().indexOf(term) > -1);
     },
-    onFilterHandler(arr,filter) {
+    onFilterHandler(arr, filter) {
       switch (filter) {
-        case 'popular':
+        case "popular":
           return arr.filter((c) => c.like);
-        case 'mostViewed':
+        case "mostViewed":
           return arr.filter((c) => c.seen > 500);
-        case 'favourite':
+        case "favourite":
           return arr.filter((c) => c.favourite);
         default:
-          return arr
+          return arr;
       }
     },
     updateTermHandler(term) {
       this.term = term;
     },
     updateFilterHandler(filter) {
-      this.filter = filter
-    },
-
-    async fetchMovie(){
+      this.filter = filter;
+    },                                                                                                                                                                                                                                     
+    async fetchMovie() {
       try {
-        this.isLoading = true
-        setTimeout(async() => {
-          const response = await axios.get('https://jsonplaceholder.typicode.com/posts',{
-            params : {
-              _limit : this.limit,
-              _page : this.page
+        this.isLoading = true;
+        setTimeout(async () => {
+          const response = await axios.get(
+            "https://jsonplaceholder.typicode.com/posts",
+            {
+              params: {
+                _limit: this.limit,
+                _page: this.page,
+              },
             }
-          })
-          const newArr = response.data.map(item => ({
-            id : item.id,
-            name : item.title,
-            like : false,
-            favourite : false,
-            seen : item.id * 77
-          }))
+          );
+          const newArr = response.data.map((item) => ({
+            id: item.id,
+            name: item.title,
+            like: false,
+            favourite: false,
+            seen: item.id * 10,
+          }));
 
-          this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
-          this.movies = newArr
-          this.isLoading = false
-        },1000)
-
-      } 
-      catch (error) {
-        console.log(`output-error`,error )
+          this.totalPages = Math.ceil(
+            response.headers["x-total-count"] / this.limit
+          );
+          this.movies = newArr;
+          this.isLoading = false;
+        }, 1000);
+      } catch (error) {
+        console.log(`output-error`, error);
       }
     },
+    changePageHandler(page) {
+      this.page = page;
+      this.fetchMovie();
+    },    
   },
   mounted() {
-    this.fetchMovie()
+    this.fetchMovie();
+  },
+  watch: {
+    page() {
+      this.fetchMovie();
+    },
   },
   computed: {
     favouriteCount() {
@@ -208,5 +221,19 @@ export default {
   height: 250px;
   border-radius: 10px;
   box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, 0.15);
+}
+
+.page-item {
+  width: 35px;
+  height: 35px;
+}
+
+.page-link {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 </style>
