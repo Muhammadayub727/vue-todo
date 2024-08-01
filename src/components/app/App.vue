@@ -184,7 +184,7 @@ export default {
           );
           this.movies = newArr;
           this.isLoading = false;
-        }, 1000);
+        }, 500);
       } catch (error) {
         console.log(`output-error`, error);
       }
