@@ -28,7 +28,7 @@
                 class="page-item mx-1"
                 :class="{ active: pageNumber == page }"
                 @click="changePageHandler(pageNumber)"
-                >
+              >
                 <span class="page-link">{{ pageNumber }}</span>
               </li>
             </ul>
@@ -50,7 +50,7 @@
             alt="No data"
           />
         </div>
-      </template>    
+      </template>
       <MovieAddForm @createMovie="createMovie" />
     </div>
   </div>
@@ -88,21 +88,25 @@ export default {
     };
   },
   methods: {
-      async createMovie(item) {  
-        try {
-          const response = await axios.post(
+    async createMovie(item) {
+      try {
+        const response = await axios.post(
           "https://jsonplaceholder.typicode.com/posts",
-              item
-          );
+          item
+        );
 
-          console.log(response);
-          this.movies.push(response.data);
-        }
-        catch (error) {
-          console.log(`output-error`, error);
-        }
-    }
-  ,
+        console.log(response);
+        this.movies.push({
+          id: response.data.id,
+          name: item.name,  // Corrected to use the name from the item
+          viewers: item.viewers,
+          like: item.like,
+          favourite: item.favourite
+        });
+      } catch (error) {
+        console.log(`output-error`, error);
+      }
+    },
     onLikeHandler(id) {
       this.movies = this.movies.map((item) => {
         if (item.id === id) {
@@ -123,8 +127,8 @@ export default {
       try {
         const response = await axios.delete(
           `https://jsonplaceholder.typicode.com/posts/${id}`
-        )
-        console.log(response)
+        );
+        console.log(response);
         this.movies = this.movies.filter((c) => c.id !== id);
       } catch (error) {
         alert(error.message);
@@ -153,7 +157,7 @@ export default {
     },
     updateFilterHandler(filter) {
       this.filter = filter;
-    },                                                                                                                                                                                                                                     
+    },
     async fetchMovie() {
       try {
         this.isLoading = true;
@@ -188,7 +192,7 @@ export default {
     changePageHandler(page) {
       this.page = page;
       this.fetchMovie();
-    },    
+    },
   },
   mounted() {
     this.fetchMovie();
