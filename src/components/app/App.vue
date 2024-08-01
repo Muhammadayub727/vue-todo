@@ -98,7 +98,7 @@ export default {
         console.log(response);
         this.movies.push({
           id: response.data.id,
-          name: item.name,  // Corrected to use the name from the item
+          name: item.name,  
           viewers: item.viewers,
           like: item.like,
           favourite: item.favourite
