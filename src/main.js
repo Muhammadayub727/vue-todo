@@ -9,6 +9,7 @@ const app = createApp(App)
 
 uiComp.map(component => app.component(component.name, component))
 
+
 app.use(router)
 app.mount('#app')
 
