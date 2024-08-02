@@ -176,7 +176,7 @@ export default {
             name: item.title,
             like: false,
             favourite: false,
-            seen: item.id * 10,
+            seen: item.id * 77,
           }));
 
           this.totalPages = Math.ceil(
